@@ -1,9 +1,10 @@
 import RSA
+import os
 
 str_features = [
-    'Features:',
-    'Generate public and private key',
+    'Generate key pair',
     'Load keys',
+    'write message',
     'Load message',
     'Encrypt message',
     'Decrypt message',
@@ -13,6 +14,10 @@ public_key = None
 private_key = None
 isKeysLoaded = False
 
+encrypted: bytes = None
+decrypted: str = None
+
+message: str = ''
 isMsgLoaded = False
 
 info = ''
@@ -20,27 +25,55 @@ info = ''
 position = 'dashboard'
 
 while True:
+    os.system('cls')
+
     print('--- RSA Encryption ---')
-    print('Status:')
+
     if info:
         print(f'info: {info}')
-    print('[y] Keys loaded' if isKeysLoaded else '[X] Keys not loaded! load keys or generate key pair')
-    if isKeysLoaded:
-        print('[y] Message loaded')
+        info = ''
+
+    print('[i] Private key loaded' if isKeysLoaded else '[X] Private key not loaded')
+    print('[i] Public key loaded' if isKeysLoaded else '[X] Public key not loaded')
+    print(
+        f'[i] Message: {message[:20]}{"..." if len(message) > 20 else ""}' if isMsgLoaded else '[X] Message not loaded')
     print('')
 
-    if position == 'dashboard':
-        [print(f'{i}.', val) for i, val in enumerate(str_features)]
-        print('0. Exit')
+    print('Features:')
+    [print(f'{i+1}.', val) for i, val in enumerate(str_features)]
+    print('0. Exit')
 
-    if position == 'load_keys':
+    user_input = int(input('Input: '))
+
+    if user_input == 0:
+        break
+
+    if user_input == 1:
+        'generate_keys'
+
+        public_key, private_key = RSA.generate_key_pair()
+        RSA.save_key_pair(public_key=public_key, private_key=private_key)
+
+        isKeysLoaded = True
+
+    if user_input == 2:
+        'load_keys'
+
         public_key, private_key = RSA.load_keys()
 
         isKeysLoaded = True
-        position = 'dashboard'
 
-    if position == 'load_message':
-        message: str | None = None
+    if user_input == 3:
+        'write_message'
+
+        message = input('message: ')
+
+        isMsgLoaded = True
+
+    if user_input == 4:
+        'load_message'
+
+        message = None
 
         with open('message.txt', 'rb') as file:
             message = file.read().decode('ascii')
@@ -49,73 +82,42 @@ while True:
         isKeysLoaded = True
         position = 'dashboard'
 
-    if position == 'encrypt_message':
-        encrypted: str | None = None
+    if user_input == 5:
+        'encrypt_message'
+
+        if message:
+            encrypted = RSA.encrypt(message=message, public_key=public_key)
 
         with open('message.bin', 'wb') as file:
-            encrypted = RSA.encrypt(message, public_key=public_key)
-            file.close()
+            file.write(encrypted)
 
-        position = 'dashboard'
+        info = 'Message encrypted! Saved in message.bin'
 
-    if position == 'decrypt_message':
-        decrypted: bytes | None = None
+    if user_input == 6:
+        'decrypt_message'
 
-        with open('message.bin', 'rb') as file:
-            decrypted = RSA.decrypt(message, public_key=public_key)
-            file.close()
+        if encrypted:
+            decrypted = RSA.decrypt(
+                encrypted=encrypted, private_key=private_key)
 
-        position = 'dashboard'
+        with open('decrypted.txt', 'w') as file:
+            file.write(decrypted)
+            info = 'Decryption successful! saved in decrypted.txt'
 
-    user_input = int(input('Input: '))
-
-    if user_input == 0:
-        break
-    if user_input == 1:
-        'generate_keys'
-
-        public_key, private_key = RSA.generate_key_pair()
-        RSA.save_key_pair(public_key=public_key, private_key=private_key)
-
-        isKeysLoaded = True
-    if user_input == 2:
-        position = 'load_keys'
-    if user_input == 3:
-        position = 'load_message'
-    if user_input == 4:
-        position = 'encrypt_message'
-    if user_input == 5:
-        position = 'decrypt_message'
-
-print('Features:')
-print('2. Back')
-
-print('2. Load keys')
-print('- Filename (example: public_key.pem): ')
-print('File not found!')
-print('File loaded!')
-print('1. Back')
+exit(1)
+print('2. Load key')
+print('- Filename (example: public_key.pem, private_key.pem): ')
+print('Error: file not found!')
 
 print('3. Load message')
 print('- Filename (example: message.txt): ')
-print('Filename loaded!')
-print('1. Back')
-
-print('4. Encrypt message')
-print('1. Load Public Key')
-print('2. Load text file')
-print('1. Insert message')
-print('- Message: ')
+print('Error: file not found!')
 
 print('5. Decrypt message')
+print('5. Load private key')
 print('[X] Keys not loaded!')
 print('[X] Public key loaded!')
 print('[X] Private key loaded!')
 
-print('1. Load public key')
-print('2. Load private key')
-print('1. Load message')
-print('2. Write message')
-print('[!] Encrypted!')
-print('[!] Encryption fails')
+print('[!] Decryption fails')
 print('[?] Public key or private key might be invalid')
