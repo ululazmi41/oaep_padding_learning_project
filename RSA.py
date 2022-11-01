@@ -2,51 +2,126 @@ import binascii
 import os
 import rsa
 
-# https://stuvel.eu/python-rsa-doc/usage.html#encryption-and-decryption
+
+key_dir = 'Keys'
 
 
-def generator_key(bits: int = 2048):
+def generate_key_pair(bits: int = 2048) -> tuple[rsa.PublicKey, rsa.PrivateKey]:
     public_key, private_key = rsa.newkeys(bits)
     return public_key, private_key
 
 
-def encrypt(message, public_key):
+def encrypt(message: str, public_key: rsa.PublicKey) -> bytes:
     encrypted = rsa.encrypt(message.encode('utf-8'), public_key)
     return encrypted
 
 
-def decrypt(encrypted, private_key):
-    decrypted = rsa.decrypt(encrypted, private_key)
+def decrypt(encrypted: bytes, private_key: rsa.PrivateKey) -> str:
+    decrypted = rsa.decrypt(encrypted, private_key).decode('ascii')
     return decrypted
 
 
-def save_key(key, filename):
-    with open(f'{filename}', 'wb') as file:
-        file.write(key.save_pkcs1())
+def save_signature(signature: bytes, filename: str = '') -> bool:
+
+    signature_filename: str = 'signature'
+
+    if filename != '':
+        signature_filename = f'{filename}_{signature_filename}'
+
+    with open(f'{signature_filename}.pem', 'wb') as file:
+        file.write(signature)
         file.close()
 
+    return True
 
-if not os.path.isfile('public.pem') or not os.path.isfile('private.pem'):
-    public_key, private_key = generator_key()
-    save_key(public_key, 'public.pem')
-    save_key(private_key, 'private.pem')
 
-public_key = None
-private_key = None
+def save_key_pair(public_key: rsa.PublicKey, private_key: rsa.PrivateKey, filename: str = '') -> bool:
 
-with open('public.pem', 'rb') as file:
-    public_key = rsa.PublicKey.load_pkcs1(file.read())
+    public_key_str: str = 'publicKey'
+    private_key_str: str = 'privateKey'
 
-with open('private.pem', 'rb') as file:
-    private_key = rsa.PrivateKey.load_pkcs1(file.read())
+    if filename != '':
+        public_key_str = f'{filename}_{public_key_str}'
+        private_key_str = f'{filename}_{private_key_str}'
 
-print(f"Private key: {private_key.save_pkcs1().decode('ascii')}")
-print(f"\nPublic key: {public_key.save_pkcs1().decode('ascii')}")
+    with open(f'{key_dir}\{public_key_str}.pem', 'wb') as file:
+        file.write(public_key.save_pkcs1())
+        file.close()
 
-message = "Saya adalah mahasiswa yang jujur"
-encrypted = encrypt(message, public_key)
-hex = binascii.hexlify(encrypted)
-print(f'\nencrypted: {hex}')
+    with open(f'{key_dir}\{private_key_str}.pem', 'wb') as file:
+        file.write(private_key.save_pkcs1())
+        file.close()
 
-decrypted = decrypt(encrypted, private_key)
-print(f'\ndecrypted: {decrypted}')
+    return True
+
+
+def load_signature(filename: str = '') -> bytes:
+
+    signature: bytes = None
+    signature_filename: str = 'signature'
+
+    if filename != '':
+        signature_filename = f'{filename}_{signature_filename}'
+
+    with open(f'{signature_filename}.pem', 'rb') as file:
+        signature = file.read()
+
+    return signature
+
+
+def load_keys(filename: str = '') -> tuple[rsa.PublicKey, rsa.PrivateKey]:
+
+    public_key_str: str = 'publicKey'
+    private_key_str: str = 'privateKey'
+
+    if filename != '':
+        public_key_str = f'{filename}_{public_key_str}'
+        private_key_str = f'{filename}_{private_key_str}'
+
+    with open(f'{key_dir}\{public_key_str}.pem', 'rb') as file:
+        public_key = rsa.PublicKey.load_pkcs1(file.read())
+
+    with open(f'{key_dir}\{private_key_str}.pem', 'rb') as file:
+        private_key = rsa.PrivateKey.load_pkcs1(file.read())
+
+    return public_key, private_key
+
+
+def check_keys_file(filename: str = '') -> bool:
+
+    public_key_str: str = 'publicKey'
+    private_key_str: str = 'privateKey'
+
+    if filename != '':
+        public_key_str = f'{filename}_{public_key_str}'
+        private_key_str = f'{filename}_{private_key_str}'
+
+    condition = os.path.isfile(f'{key_dir}\{public_key_str}.pem') and os.path.isfile(
+        f'{key_dir}\{private_key_str}.pem')
+    return condition
+
+
+def check_signature_file(filename: str = '') -> bool:
+
+    signature_filename: str = 'signature'
+
+    if filename != '':
+        signature_filename = f'{filename}_{signature_filename}'
+
+    condition = os.path.isfile(f'{signature_filename}.pem')
+    return condition
+
+
+def signature_message(message: str, private_key, hash_method: str) -> bytes:
+    signature = rsa.sign(message.encode('UTF-8'), private_key, hash_method)
+    return signature
+
+
+def verify_signature(message: str, signature: bytes, public_key: rsa.PublicKey) -> str:
+    result = rsa.verify(message.encode('UTF-8'), signature, public_key)
+    return result
+
+
+def bytes_to_hex(text: bytes) -> str:
+    result = binascii.hexlify(text).decode('ascii')
+    return result
