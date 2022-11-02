@@ -1,7 +1,5 @@
 # RSA Encryption <img src="https://emojis.slackmojis.com/emojis/images/1531849430/4246/blob-sunglasses.gif?1531849430" width="30"/>
 
-Test Push
-
 Written with Python using [RSA module](https://stuvel.eu/python-rsa-doc/index.html)
 
 Features:
