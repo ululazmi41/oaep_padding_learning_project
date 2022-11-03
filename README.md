@@ -33,3 +33,4 @@ TODO:
 - [OAEP | RSA Cryptography](https://www.rfc-editor.org/rfc/rfc3447#section-7.1.1)
 - [Optimal asymmetric encryption padding | Wikipedia](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding)
 - [Mask Generation Function | Wikipedia](https://en.wikipedia.org/wiki/Mask_generation_function)
+- [RSA-OAEP | GitHub Repo](https://github.com/mineyev2/RSA-OAEP-Python)
