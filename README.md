@@ -17,6 +17,7 @@ TODO:
 - [ ] REPL
 - [ ] More use-cases
 - [ ] OAEP Implementation
+- [ ] GUI?
 
 ## Referrences
 
