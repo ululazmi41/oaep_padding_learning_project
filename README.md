@@ -23,9 +23,11 @@ Features:
 
 TODO:
 
+- [x] OAEP Padding
+- [ ] OAEP Unpadding
+- [ ] OAEP-RSA Implementation
 - [ ] REPL
 - [ ] More use-cases
-- [ ] OAEP Implementation
 - [ ] GUI?
 
 ## Referrences
