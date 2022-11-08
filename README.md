@@ -20,16 +20,14 @@ Features:
 - [x] Generate Signature
 - [x] Save signature to file
 - [x] Sign message
+- [x] OAEP
 
 TODO:
 
-- [x] OAEP Padding
-- [ ] OAEP Unpadding
-- [ ] OAEP-RSA Implementation
+- [ ] RSA-OAEP Implementation
 - [ ] Test
 - [ ] REPL
 - [ ] More use-cases
-- [ ] GUI?
 
 ## Referrences
 
