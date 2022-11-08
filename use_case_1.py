@@ -1,5 +1,7 @@
 import RSA
 
+# Encrypt and decrypt message using RSA
+
 public_key = None
 private_key = None
 
