@@ -14,12 +14,10 @@ Written with Python using [RSA module](https://stuvel.eu/python-rsa-doc/index.ht
 Features:
 
 - [x] Generate Key Pair
-- [x] Save key pair to file
+- [x] Save key pair as .bin
 - [x] Encrypt message
-- [x] Decrypt encrypted message
-- [x] Generate Signature
-- [x] Save signature to file
-- [x] Sign message
+- [x] Decrypt encrypted
+- [x] Signature
 - [x] OAEP
 
 TODO:
