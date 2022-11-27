@@ -16,7 +16,7 @@ Features:
 - [x] Generate Key Pair
 - [x] Save key pair as .bin
 - [x] Encrypt message
-- [x] Decrypt encrypted
+- [x] Decrypt message
 - [x] Signature
 - [x] OAEP
 
