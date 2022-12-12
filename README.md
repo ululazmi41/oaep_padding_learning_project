@@ -9,16 +9,15 @@
 
 ---
 
-Written with Python using [RSA module](https://stuvel.eu/python-rsa-doc/index.html)
+Written with Python using [RSA module](https://stuvel.eu/python-rsa-doc/index.html) and also implemented with Optimal Asymmetric Encryption Padding.
 
 Features:
 
-- [x] Generate Key Pair
+- [x] Generate key pair
 - [x] Save key pair as .bin
-- [x] Encrypt message
-- [x] Decrypt message
+- [x] Encrypt and decrypt
 - [x] Signature
-- [x] OAEP
+- [x] OAEP Implementation
 
 TODO:
 
