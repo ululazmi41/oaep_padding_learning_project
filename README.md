@@ -14,9 +14,9 @@ Written with Python using [RSA module](https://stuvel.eu/python-rsa-doc/index.ht
 Features:
 
 - [x] Generating key pair
-- [x] Encrypting and decrypting
+- [x] Encrypting message
+- [x] Decrypting message
 - [x] Signing message
-- [x] Saving keys and signature
 - [x] OAEP Implementation
 
 TODO:
