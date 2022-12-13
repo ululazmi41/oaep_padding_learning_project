@@ -24,6 +24,7 @@ TODO:
 - [ ] RSA-OAEP Implementation
 - [ ] Testing
 - [ ] Remove REPL
+- [ ] Self-coded RSA Implementation
 
 ## Referrences
 
