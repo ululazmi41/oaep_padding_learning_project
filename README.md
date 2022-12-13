@@ -13,18 +13,17 @@ Written with Python using [RSA module](https://stuvel.eu/python-rsa-doc/index.ht
 
 Features:
 
-- [x] Generate key pair
-- [x] Save key pair as .bin
-- [x] Encrypt and decrypt
-- [x] Signature
+- [x] Generating key pair
+- [x] Encrypting and decrypting
+- [x] Signing message
+- [x] Saving keys and signature
 - [x] OAEP Implementation
 
 TODO:
 
 - [ ] RSA-OAEP Implementation
-- [ ] Test
-- [ ] REPL
-- [ ] More use-cases
+- [ ] Testing
+- [ ] Remove REPL
 
 ## Referrences
 
