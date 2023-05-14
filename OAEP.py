@@ -5,7 +5,7 @@ import numpy as np
 import math
 
 
-def find_PS_len(PS: bytes) -> int | bool:
+def PS_length(PS: bytes) -> int | bool:
     for i in range(len(PS)):
         if PS[i] == 1:
             ps_end = i
@@ -87,13 +87,21 @@ def unpad(padded: bytes, RSA_modulo: int, hash_func=sha256) -> bytes:
     DB: bytes = xor_bytes(maskedDB, dbMask)
 
     lHash: bytes = DB[:hLen]
-    lPS: int = find_PS_len(DB[hLen:])
+    lPS: int = PS_length(DB[hLen:])
     PS: bytes = DB[hLen:lPS]
     one_byte: bytes = DB[hLen+lPS]
     message: bytes = DB[hLen+lPS+1:]
 
     return message.decode()
 
+
+def OS2IP(OS: bytes) -> int:
+
+    return int.from_bytes(OS, 'big')
+
+print(OS2IP(b'\01' + b'\02' + b'\03' + b'\04'))
+
+exit()
 
 RSA_modulo = 65537
 

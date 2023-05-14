@@ -21,19 +21,22 @@ Features:
 
 TODO:
 
-- [ ] RSA-OAEP Implementation
+- [ ] I2OSP
+- [ ] OS2IP
 - [ ] Testing
-- [ ] Remove REPL
+- [ ] REPL
 - [ ] Self-coded RSA Implementation
 
 ## Referrences
 
 ### Python
+
 - [Python Cryptography Toolkit](https://www.pycrypto.org/doc/)
 - [python-rsa | GitHub Repo](https://github.com/sybrenstuvel/python-rsa)
 - [System.Arraycopy | GeeksforGeeks](https://www.geeksforgeeks.org/system-arraycopy-in-java/)
 
 ### OAEP
+
 - [Python OAEP Implementation | Github Repo](https://github.com/CarlTern/OAEP-implementation)
 - [Can you explain Bleichenbacher's CCA attack on PKCS#1 v1.5? | crypto.stackexchange.com](https://crypto.stackexchange.com/questions/12688/can-you-explain-bleichenbachers-cca-attack-on-pkcs1-v1-5)
 - [OAEP in Java by mbakkar | GitHub Repo](https://github.com/mbakkar/OAEP)
