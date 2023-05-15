@@ -17,14 +17,14 @@ Features:
 - [x] Encrypting message
 - [x] Decrypting message
 - [x] Signing message
-- [x] OAEP Implementation
+- [x] OAEP
 
 TODO:
 
-- [ ] I2OSP
-- [ ] OS2IP
-- [ ] Testing
+- [ ] RSAEP
+- [ ] RSADP
 - [ ] REPL
+- [ ] Testing
 - [ ] Self-coded RSA Implementation
 
 ## Referrences

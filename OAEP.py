@@ -97,9 +97,37 @@ def unpad(padded: bytes, RSA_modulo: int, hash_func=sha256) -> bytes:
 
 def OS2IP(OS: bytes) -> int:
 
-    return int.from_bytes(OS, 'big')
+    # return int.from_bytes(OS, 'big') #? Python build-in function
+    return sum([element*256**(len(OS) - (index + 1))for index, element in enumerate(OS)]) #? self-coded
 
-print(OS2IP(b'\01' + b'\02' + b'\03' + b'\04'))
+
+def I2OSP(IP: int) -> bytes:
+
+    OSLen: int = 1
+    overflow: int = 0    
+
+    while True:
+        overflow += 1
+
+        if overflow > 10:
+            print('overflow')
+            exit()
+        
+        if IP < 256 ** OSLen:
+            break
+        else:
+            OSLen += 1
+    
+    OS: bytes = b''
+    remainder: int = IP
+    
+    for index in range(OSLen):
+        modulo_result: int = remainder // 256 ** (OSLen - (index + 1))
+        OS += modulo_result.to_bytes(1, 'big')
+        remainder -= modulo_result * 256 ** (OSLen - (index + 1))
+    return OS
+
+# TODO: convert message to octet string primitive and vice versa
 
 exit()
 
