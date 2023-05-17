@@ -127,11 +127,51 @@ def I2OSP(IP: int) -> bytes:
         remainder -= modulo_result * 256 ** (OSLen - (index + 1))
     return OS
 
-# TODO: convert message to octet string primitive and vice versa
 
-exit()
+def RSAEP() -> bytes:
+    
+    return b'x00'
+
+def RSADP() -> int:
+    
+    return 1
+
+def inverse(x, m):
+    #  https://stackoverflow.com/questions/23279208/calculate-d-from-n-e-p-q-in-rsa
+    
+    a, b, u = 0, m, 1
+    while x > 0:
+        q = b // x
+        x, a, b, u = b % x, u, x, a - q * u
+    if b == 1:
+        return a % m
+    print('error')
+
+
+def coprimeOf(a, b) -> int:
+    
+    # TODO: coprime of a and b
+    
+    return 1
+
 
 RSA_modulo = 65537
+
+def lcd(p, q) -> int:
+
+    # TODO: Least Common Divisor
+
+    return 1
+
+p = 2
+q = 7
+N = p * q
+phi = lcd(p, q)
+e = coprimeOf(N, phi)
+d = inverse(e, phi)
+# TODO: continue
+
+# TODO: convert message to octet string primitive and vice versa
 
 padded = pad(message='Aneko Ikezawa', RSA_modulo=RSA_modulo, hash_func=sha256)
 unpadded = unpad(padded=padded, RSA_modulo=RSA_modulo)

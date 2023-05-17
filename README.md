@@ -21,6 +21,8 @@ Features:
 
 TODO:
 
+- [ ] lcd
+- [ ] gcp
 - [ ] RSAEP
 - [ ] RSADP
 - [ ] REPL
@@ -31,6 +33,7 @@ TODO:
 
 ### Python
 
+- [Python | Wikipedia](https://en.wikipedia.org/wiki/RSA_(cryptosystem))
 - [Python Cryptography Toolkit](https://www.pycrypto.org/doc/)
 - [python-rsa | GitHub Repo](https://github.com/sybrenstuvel/python-rsa)
 - [System.Arraycopy | GeeksforGeeks](https://www.geeksforgeeks.org/system-arraycopy-in-java/)
