@@ -9,9 +9,11 @@
 
 ---
 
-Written with Python using [RSA module](https://stuvel.eu/python-rsa-doc/index.html) and also implemented with Optimal Asymmetric Encryption Padding.
+# RSA Encryption
 
-Features:
+Written in Python using [RSA module](https://stuvel.eu/python-rsa-doc/index.html) with Optimal Asymmetric Encryption Padding.
+
+## Features
 
 - [x] Generating key pair
 - [x] Encrypting message
@@ -19,15 +21,15 @@ Features:
 - [x] Signing message
 - [x] OAEP
 
-TODO:
+## Future Plans
 
 - [ ] lcd
 - [ ] gcp
+- [ ] REPL
 - [ ] RSAEP
 - [ ] RSADP
-- [ ] REPL
 - [ ] Testing
-- [ ] Self-coded RSA Implementation
+- [ ] Self-coded RSA
 
 ## Referrences
 

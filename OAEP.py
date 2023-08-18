@@ -1,8 +1,8 @@
 import os
-from functools import reduce
-from hashlib import sha256
-import numpy as np
 import math
+import numpy as np
+from hashlib import sha256
+from functools import reduce
 
 
 def PS_length(PS: bytes) -> int | bool:
@@ -42,7 +42,6 @@ def xor_bytes(a: bytes, b: bytes) -> bytes:
 def xor_bytes_nl(a: bytes, b: bytes) -> bytes:
     xor_ab = [i ^ j for i, j in zip(a, b)]
     in_bytes = [(k).to_bytes(1, 'big')for k in xor_ab]
-    # https://www.geeksforgeeks.org/reduce-in-python/
     concat = reduce(lambda a, b: a+b, in_bytes)
     return concat
 
@@ -196,7 +195,6 @@ print(unpadded)
 # seed = os.urandom(256)
 # hash = sha256
 # hLen = hash.block_size
-
 # print(f'result: {MGF1(seed, hLen, hash).hex()}')
 
 # Bytes -> Int -> Bytes

@@ -21,7 +21,7 @@ else:
 print(f"\n{private_key.save_pkcs1().decode('ascii')}")
 print(f"{public_key.save_pkcs1().decode('ascii')}")
 
-message = "Saya adalah mahasiswa yang jujur"
+message = "RSA Encryption/Decryption"
 print(f'Message: {message}')
 
 encrypted = RSA.encrypt(message, public_key)

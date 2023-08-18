@@ -1,7 +1,7 @@
 import binascii
 import os
 import rsa
-
+from pathlib import Path
 
 key_dir = 'Keys'
 
@@ -22,12 +22,9 @@ def decrypt(encrypted: bytes, private_key: rsa.PrivateKey) -> str:
 
 
 def save_signature(signature: bytes, filename: str = '') -> bool:
-
     signature_filename: str = 'signature'
-
     if filename != '':
         signature_filename = f'{filename}_{signature_filename}'
-
     with open(f'{signature_filename}.pem', 'wb') as file:
         file.write(signature)
         file.close()
@@ -36,22 +33,17 @@ def save_signature(signature: bytes, filename: str = '') -> bool:
 
 
 def save_key_pair(public_key: rsa.PublicKey, private_key: rsa.PrivateKey, filename: str = '') -> bool:
-
-    public_key_str: str = 'publicKey'
-    private_key_str: str = 'privateKey'
-
+    public_key_str = 'publicKey'
+    private_key_str = 'privateKey'
     if filename != '':
         public_key_str = f'{filename}_{public_key_str}'
         private_key_str = f'{filename}_{private_key_str}'
-
-    with open(f'{key_dir}\{public_key_str}.pem', 'wb') as file:
+    public_key_file = Path(f'{key_dir}\{public_key_str}.pem')
+    private_key_file = Path(f'{key_dir}\{private_key_str}.pem')
+    with public_key_file.open('wb') as file:
         file.write(public_key.save_pkcs1())
-        file.close()
-
-    with open(f'{key_dir}\{private_key_str}.pem', 'wb') as file:
+    with private_key_file.open('wb') as file:
         file.write(private_key.save_pkcs1())
-        file.close()
-
     return True
 
 
