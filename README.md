@@ -23,13 +23,13 @@ Written in Python using [RSA module](https://stuvel.eu/python-rsa-doc/index.html
 
 ## Future Plans
 
+- [ ] RSA
 - [ ] lcd
 - [ ] gcp
 - [ ] REPL
 - [ ] RSAEP
 - [ ] RSADP
 - [ ] Testing
-- [ ] Self-coded RSA
 
 ## Referrences
 
