@@ -11,7 +11,7 @@
 
 # RSA Encryption
 
-Written in Python using [RSA module](https://stuvel.eu/python-rsa-doc/index.html) module with Optimal Asymmetric Encryption Padding.
+Written in Python using [RSA module](https://stuvel.eu/python-rsa-doc/index.html) with Optimal Asymmetric Encryption Padding.
 
 ## Features
 
