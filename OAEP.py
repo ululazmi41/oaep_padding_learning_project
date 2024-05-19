@@ -1,25 +1,28 @@
+"""Optimal Asymmetric Encryption Padding (OAEP)"""
+
 import os
 import math
-import numpy as np
 from hashlib import sha256
 from functools import reduce
+import numpy as np
 
 
 def PS_length(PS: bytes) -> int | bool:
-    for i in range(len(PS)):
-        if PS[i] == 1:
+    for i, val in enumerate(PS):
+        if val == 1:
             ps_end = i
             return ps_end
     return False
 
 
-def to_bytes(x: int): return (x).to_bytes(math.floor(math.log(x, 256))+1)
+def to_bytes(x: int):
+    return (x).to_bytes(math.floor(math.log(x, 256)) + 1)
 
 
 def MGF1(seed: bytes, length: int, hash_func=sha256) -> bytes:
     hLen: int = hash_func().block_size
-    if length > (hLen << 32):
-        raise ValueError('Mask too long')
+    if length > hLen << 32:
+        raise ValueError('Mask is too long')
     T: bytes = b''
     counter = 0
     while len(T) < length:
@@ -38,7 +41,7 @@ def xor_bytes(a: bytes, b: bytes) -> bytes:
     return result
 
 
-# No-library
+# without using numpy; nl = no library
 def xor_bytes_nl(a: bytes, b: bytes) -> bytes:
     xor_ab = [i ^ j for i, j in zip(a, b)]
     in_bytes = [(k).to_bytes(1, 'big')for k in xor_ab]
@@ -48,7 +51,7 @@ def xor_bytes_nl(a: bytes, b: bytes) -> bytes:
 
 def pad(message: str, RSA_modulo: int, hash_func=sha256) -> bytes:
 
-    label: str = 'Aneko'
+    label: str = 'OAEP'
     lHash: bytes = hash_func(label.encode('UTF-8')).digest()
 
     mLen: int = len(message)
@@ -71,12 +74,12 @@ def pad(message: str, RSA_modulo: int, hash_func=sha256) -> bytes:
 
 def unpad(padded: bytes, RSA_modulo: int, hash_func=sha256) -> bytes:
 
-    label: str = 'Aneko'
+    label: str = 'OAEP'
     lHash: bytes = hash_func(label.encode('UTF-8'))
     hLen: int = lHash.digest_size
     k: int = RSA_modulo
 
-    zero_bytes: bytes = padded[:1]
+    # zero_bytes: bytes = padded[:1]
     maskedSeed: bytes = padded[1:1+hLen]
     maskedDB: bytes = padded[1+hLen:]
 
@@ -87,19 +90,21 @@ def unpad(padded: bytes, RSA_modulo: int, hash_func=sha256) -> bytes:
 
     lHash: bytes = DB[:hLen]
     lPS: int = PS_length(DB[hLen:])
-    PS: bytes = DB[hLen:lPS]
-    one_byte: bytes = DB[hLen+lPS]
+    
+    # PS: bytes = DB[hLen:lPS]
+    # one_byte: bytes = DB[hLen+lPS]
+    
     message: bytes = DB[hLen+lPS+1:]
+    decoded: str = message.decode()
+    return decoded
 
-    return message.decode()
-
-
+# Octet string to Integer Primitive
 def OS2IP(OS: bytes) -> int:
 
     # return int.from_bytes(OS, 'big') #? Python build-in function
     return sum([element*256**(len(OS) - (index + 1))for index, element in enumerate(OS)]) #? self-coded
 
-
+# Integer to Octet String Primitive
 def I2OSP(IP: int) -> bytes:
 
     OSLen: int = 1
@@ -127,54 +132,43 @@ def I2OSP(IP: int) -> bytes:
     return OS
 
 
-def RSAEP() -> bytes:
-    
-    return b'x00'
+# RSA_modulo = 65537
+# padded = pad(message='Python', RSA_modulo=RSA_modulo, hash_func=sha256)
+# unpadded = unpad(padded=padded, RSA_modulo=RSA_modulo)
+# print(padded)
+# print(unpadded)
 
-def RSADP() -> int:
-    
-    return 1
+# def inverse(x, m):
+#     #  https://stackoverflow.com/questions/23279208/calculate-d-from-n-e-p-q-in-rsa
+#     a, b, u = 0, m, 1
+#     while x > 0:
+#         q = b // x
+#         x, a, b, u = b % x, u, x, a - q * u
+#     if b == 1:
+#         return a % m
+#     print('error')
 
-def inverse(x, m):
-    #  https://stackoverflow.com/questions/23279208/calculate-d-from-n-e-p-q-in-rsa
-    
-    a, b, u = 0, m, 1
-    while x > 0:
-        q = b // x
-        x, a, b, u = b % x, u, x, a - q * u
-    if b == 1:
-        return a % m
-    print('error')
+# p = 2
+# q = 7
+# N = p * q
+# phi = lcd(p, q)
+# e = coprimeOf(N, phi)
+# d = inverse(e, phi)
 
+# convert message to octet string primitive and vice versa
 
-def coprimeOf(a, b) -> int:
-    
-    # TODO: coprime of a and b
-    
-    return 1
+# Least Common Divisor
+# def lcd(p, q) -> int:
+#     return 1
 
+# def RSAEP() -> bytes:
+#     return b'x00'
 
-RSA_modulo = 65537
+# def RSADP() -> int:
+#     return 1
 
-def lcd(p, q) -> int:
-
-    # TODO: Least Common Divisor
-
-    return 1
-
-p = 2
-q = 7
-N = p * q
-phi = lcd(p, q)
-e = coprimeOf(N, phi)
-d = inverse(e, phi)
-# TODO: continue
-
-# TODO: convert message to octet string primitive and vice versa
-
-padded = pad(message='Aneko Ikezawa', RSA_modulo=RSA_modulo, hash_func=sha256)
-unpadded = unpad(padded=padded, RSA_modulo=RSA_modulo)
-print(unpadded)
+# def coprimeOf(a, b) -> int:
+#     return 1
 
 # Pad message
 # padded = pad(message='Aneko Ikezawa',

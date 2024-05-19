@@ -2,51 +2,31 @@
   <img width="120px" src="https://media.giphy.com/media/13NQGbIUqmcUXm/giphy.gif" />
   <h1>
     <img src="https://emojis.slackmojis.com/emojis/images/1531849430/4246/blob-sunglasses.gif?1531849430" width="30"/>
-    RSA Encryption
+    OAEP Padding
     <img src="https://emojis.slackmojis.com/emojis/images/1531849430/4246/blob-sunglasses.gif?1531849430" width="30"/>
   </h1>
 </div>
 
----
+# RSA-OAEP Implementation learning project
 
-# RSA Encryption
+This repository serves as a learning project aimed at implementing the **Optimal Asymmetric Encryption Padding** (OAEP) scheme on the RSA encryption algorithm.
 
-Written in Python using [RSA module](https://stuvel.eu/python-rsa-doc/index.html) module with Optimal Asymmetric Encryption Padding.
+**Disclaimer**: The RSA encryption and decryption will use the existing [RSA module](https://stuvel.eu/python-rsa-doc/index.html), while the OAEP Padding are implemented by following the OAEP instructions.
 
-## Features
+## Key Features
 
-- [x] Generate key pair
-- [x] Encrypt message
-- [x] Decrypt message
-- [x] Sign message
-- [x] OAEP
+- **Manual Implementation of OAEP**: The project focuses on understanding and implementing the OAEP padding scheme from scratch.
 
-## Future Plans
+- **Integration with RSA Module**: The RSA encryption and decryption operations will utilize the available RSA modules.
 
-- [ ] lcd
-- [ ] gcp
-- [ ] REPL
-- [ ] RSAEP
-- [ ] RSADP
-- [ ] Testing
-- [ ] Self-coded RSA
+- **Example Use Cases**: example is provided to showcase the usage of the implemented RSA-OAEP scheme in encrypting and decrypting data securely.
 
-## Referrences
+## Setup
 
-### Python
+- Download or clone this repository and use the `OAEP.py` module. For the RSA encryption/decryption, use the `RSA.py` module.
+- Check on the `example.py` for the usage example.
 
-- [Python | Wikipedia](https://en.wikipedia.org/wiki/RSA_(cryptosystem))
-- [Python Cryptography Toolkit](https://www.pycrypto.org/doc/)
-- [python-rsa | GitHub Repo](https://github.com/sybrenstuvel/python-rsa)
-- [System.Arraycopy | GeeksforGeeks](https://www.geeksforgeeks.org/system-arraycopy-in-java/)
+## OAEP Instructions
 
-### OAEP
-
-- [Python OAEP Implementation | Github Repo](https://github.com/CarlTern/OAEP-implementation)
-- [Can you explain Bleichenbacher's CCA attack on PKCS#1 v1.5? | crypto.stackexchange.com](https://crypto.stackexchange.com/questions/12688/can-you-explain-bleichenbachers-cca-attack-on-pkcs1-v1-5)
-- [OAEP in Java by mbakkar | GitHub Repo](https://github.com/mbakkar/OAEP)
-- [How to perform OAEP padding on plaintext | Stackoverflow](https://stackoverflow.com/questions/48127441/how-to-perform-oaep-padding-on-plaintext)
-- [OAEP | RSA Cryptography](https://www.rfc-editor.org/rfc/rfc3447#section-7.1.1)
-- [Optimal asymmetric encryption padding | Wikipedia](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding)
-- [Mask Generation Function | Wikipedia](https://en.wikipedia.org/wiki/Mask_generation_function)
-- [RSA-OAEP | GitHub Repo](https://github.com/mineyev2/RSA-OAEP-Python)
+- [Optimal asymmetric encryption padding on Wikipedia](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding)
+- [Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1](https://www.rfc-editor.org/rfc/rfc3447#section-7.1.1)
